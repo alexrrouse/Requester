@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C81f" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="App" representedClassName="RZRApp" syncable="YES">
+        <relationship name="services" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Service" inverseName="app" inverseEntity="Service" syncable="YES"/>
+    </entity>
+    <entity name="Endpoint" representedClassName="RZREndpoint" syncable="YES">
+        <attribute name="method" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="headers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Header" inverseName="noReadEndpoint" inverseEntity="Header" syncable="YES"/>
+    </entity>
+    <entity name="Environment" representedClassName="RZREnvironment" syncable="YES">
+        <attribute name="baseURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="service" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Service" inverseName="environments" inverseEntity="Service" syncable="YES"/>
+    </entity>
+    <entity name="Header" representedClassName="RZRHeader" parentEntity="KeyValue" syncable="YES">
+        <relationship name="noReadEndpoint" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Endpoint" inverseName="headers" inverseEntity="Endpoint" syncable="YES"/>
+        <relationship name="noReadService" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Service" inverseName="baseHeaders" inverseEntity="Service" syncable="YES"/>
+    </entity>
+    <entity name="KeyValue" representedClassName="RZRKeyValue" syncable="YES">
+        <attribute name="lookupKey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lookupValue" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Parameters" representedClassName="RZRParameters" parentEntity="KeyValue" syncable="YES"/>
+    <entity name="Service" representedClassName="RZRService" syncable="YES">
+        <relationship name="app" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="App" inverseName="services" inverseEntity="App" syncable="YES"/>
+        <relationship name="baseHeaders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Header" inverseName="noReadService" inverseEntity="Header" syncable="YES"/>
+        <relationship name="environments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Environment" inverseName="service" inverseEntity="Environment" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="App" positionX="-63" positionY="-18" width="128" height="58"/>
+        <element name="Service" positionX="-54" positionY="-9" width="128" height="88"/>
+        <element name="Environment" positionX="-36" positionY="9" width="128" height="88"/>
+        <element name="Parameters" positionX="-18" positionY="36" width="128" height="45"/>
+        <element name="Endpoint" positionX="0" positionY="45" width="128" height="88"/>
+        <element name="KeyValue" positionX="18" positionY="63" width="128" height="73"/>
+        <element name="Header" positionX="36" positionY="81" width="128" height="73"/>
+    </elements>
+</model>
